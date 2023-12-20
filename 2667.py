@@ -1,45 +1,45 @@
 from sys import stdin
 from collections import deque
 
-n = int(stdin.readline())
-
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
-
-def bfs(graph, x, y):
+def bfs(graph, x, y, visited):
     n = len(graph)
-    node = deque()
-    node.append((x,y))
+    queue = deque()
+    queue.append((x, y))
     graph[x][y] = 0
-    visited[x][y] == True
+    visited[x][y] = True
 
-    num = 1
+    num_houses = 1
 
-    while node:
-        x, y = node.popleft()
+    while queue:
+        x, y = queue.popleft()
         for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
-            
-            if nx < 0 or nx >= n or ny < 0 or ny >= n:
-                continue
-            if graph[nx][ny] == 1:
-                num +=1
+            nx, ny = x + dx[i], y + dy[i]
+
+            if 0 <= nx < n and 0 <= ny < n and graph[nx][ny] == 1 and not visited[nx][ny]:
+                num_houses += 1
                 graph[nx][ny] = 0
                 visited[nx][ny] = True
-                node.append((nx, ny))
-    return num
-graph = list()
-visited = [[False] * n for _ in range(n)]
-for i in range(n):
-    graph.append(list(map(int, input())))
+                queue.append((nx, ny))
+                
+    return num_houses
 
-ans = list()
-for i in range(n):
-    for j in range(n):
-        if graph[i][j] == 1:
-            ans.append(bfs(graph, i, j))
-ans.sort()
-print(len(ans))
-for i in ans:
-    print(i)
+try:
+    n = int(stdin.readline())
+    graph = [list(map(int, input().strip())) for _ in range(n)]
+
+    visited = [[False] * n for _ in range(n)]
+    complexes = []
+
+    for i in range(n):
+        for j in range(n):
+            if graph[i][j] == 1 and not visited[i][j]:
+                complexes.append(bfs(graph, i, j, visited))
+
+    complexes.sort()
+
+    print(len(complexes))
+    for size in complexes:
+        print(size)
+
+except Exception as e:
+    print(f"An error occurred: {e}")
