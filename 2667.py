@@ -11,6 +11,7 @@ def bfs(graph, x, y):
     node = deque()
     node.append((x,y))
     graph[x][y] = 0
+    visited[x][y] == True
 
     num = 1
 
@@ -25,9 +26,11 @@ def bfs(graph, x, y):
             if graph[nx][ny] == 1:
                 num +=1
                 graph[nx][ny] = 0
+                visited[nx][ny] = True
                 node.append((nx, ny))
     return num
 graph = list()
+visited = [[False] * n for _ in range(n)]
 for i in range(n):
     graph.append(list(map(int, input())))
 
@@ -36,6 +39,7 @@ for i in range(n):
     for j in range(n):
         if graph[i][j] == 1:
             ans.append(bfs(graph, i, j))
+ans.sort()
 print(len(ans))
 for i in ans:
     print(i)
