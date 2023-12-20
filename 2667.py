@@ -21,10 +21,12 @@ def bfs(x, y):
             nx = x + dx[i]
             ny = y = dy[i]
             
-            if 0 <= nx < n and 0 <= ny < n and graph[nx][ny] == 1 and visited[nx][ny]:
-                graph[x][y] = 0
-                visited[x][y] = 1
-                num += 1
+            if nx < 0 or nx >= n or ny < 0 or ny >= n:
+                continue
+            elif graph[nx][ny] == 1:
+                num +=1
+                graph[nx][ny] = 0
+                node.append((nx, ny))
     return num
 graph = list()
 for i in range(n):
@@ -37,5 +39,5 @@ for j in range(n*n):
     ans.append(bfs(0,0))
 
 print(len(ans))
-for i in len:
+for i in ans:
     print(i)
