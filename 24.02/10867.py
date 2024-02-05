@@ -4,5 +4,4 @@ n = int(stdin.readline())
 data = sorted(set(list(map(int, stdin.readline().strip().split()))))
 
 for x in data:
-    print(x, end=' ')
-    
+    print(x, end=' ')  
