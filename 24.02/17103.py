@@ -1,21 +1,25 @@
 from sys import stdin
 
+prime = []
+check = [0]*1000001
+check[0] = 1
+check[1] = 1
+
+for i in range(2, 1000001):
+    if check[i] == 0:
+        prime.append(i)
+        for j in range(2*i, 1000001, i):
+            check[j] = 1
+
 t = int(stdin.readline())
 
-def check(f):
-    temp = 0
-    for i in range(2, int(f**0.5) + 1):
-        if f%i == 0:
-            return False
-    return True
-
 for _ in range(t):
-    ans = 0
     n = int(stdin.readline())
-    for i in range(2, n//2+1):
-        x = i
-        y = n-i
-        if check(x) and check(y):
-            ans += 1
-            print(x, y)
-    print(ans)
+    count = 0
+    for i in prime:
+        if i >= n:
+            break
+        if not check[n-i] and i <= n-i:
+            count += 1
+
+    print(count)
