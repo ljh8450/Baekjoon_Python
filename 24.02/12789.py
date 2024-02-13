@@ -1,28 +1,20 @@
-from sys import stdin
-from collections import deque
+import sys
 
-n = int(stdin.readline())
-data = deque(list(map(int, stdin.readline().split())))
-stack = deque([])
+input = sys.stdin.readline
+n = int(input())
+wait = list(map(int, input().split))
+tmp = []
+target = 1
 
-for i in range(n):
-    if data[0] == min(data):
-        data.popleft()
-    else:
-        if stack:
-            if stack[-1] > data[0]:
-                data.popleft()
-            else:
-                if stack[-1] < min(data):
-                    stack.pop()
-        else:
-            if data[0] != min(data):
-                stack.append(data.popleft())
-            else:
-                print("Sad")
-    if len(data) <= 1 and len(stack) <= 1:
-        print("Nice")
-        break
-    if not data and not stack:
-        print("Nice")
-        break
+for i in wait:
+    tmp.append(i)
+    while tmp and tmp[-1] == target:
+        tmp.pop()
+        target += 1
+    if len(tmp) > 1 and tmp[-1] > tmp[-2]:
+        print("Sad")
+        sys.exit()
+if tmp:
+    print("Sad")
+else:
+    print("Nice")
