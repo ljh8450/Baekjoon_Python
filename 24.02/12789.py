@@ -2,7 +2,7 @@ import sys
 
 input = sys.stdin.readline
 n = int(input())
-wait = list(map(int, input().split))
+wait = list(map(int, input().split()))
 tmp = []
 target = 1
 
